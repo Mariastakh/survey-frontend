@@ -1,15 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import getTopics from "./Services/getTopics"
+import DisplayTopics from "./Components/DisplayTopics"
 
 function App(){
   return (
     <main>
       <Router>
-        <Route path="/"  /> 
+        <Route path="/" component={DisplayTopics} /> 
       </Router>
-      {getTopics()}
     </main>
   );
 }
