@@ -61,6 +61,10 @@ export default class DisplayTopics extends Component {
     return <div>{array}</div>;
   }
 
+  getQuestionnaires() {
+    return "/questions";
+  }
+
   render() {
     const { error, isLoaded, topics } = this.state;
     if (error) {
@@ -72,6 +76,11 @@ export default class DisplayTopics extends Component {
         <>
           <h2>Surveys</h2>
           {this.renderButtons()}
+          <form action={this.getQuestionnaires()}>
+          <div>
+            <button type="submit">Do survey</button>
+          </div>
+        </form>
         </>
       );
       return listOfTopics;
