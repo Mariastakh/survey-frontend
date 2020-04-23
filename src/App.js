@@ -2,12 +2,14 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import DisplayTopics from "./Components/DisplayTopics"
+import DisplaySurveys from "./Components/DisplaySurveys"
 
 function App(){
   return (
     <main>
       <Router>
-        <Route path="/" component={DisplayTopics} /> 
+        <Route path="/topics" component={DisplayTopics} />
+        <Route path="/surveys" component={DisplaySurveys} /> 
       </Router>
     </main>
   );

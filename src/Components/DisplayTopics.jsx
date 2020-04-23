@@ -62,7 +62,7 @@ export default class DisplayTopics extends Component {
   }
 
   getQuestionnaires() {
-    return "/questions";
+    return "/surveys";
   }
 
   render() {
