@@ -5,6 +5,7 @@ import SurveyButton from "../Components/SurveyButton";
 export default class DisplayTopics extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     this.state = {
       error: null,
       isLoaded: false,
@@ -30,6 +31,10 @@ export default class DisplayTopics extends Component {
     );
   }
 
+  handleClick(i) {
+    console.log("clicked!");
+  }
+
   render() {
     const { error, isLoaded, topics } = this.state;
     if (error) {
@@ -41,7 +46,10 @@ export default class DisplayTopics extends Component {
         <>
           <h2>Surveys</h2>
           {topics.map((item) => (
-            <SurveyButton></SurveyButton>
+            <SurveyButton
+              key={item}
+              onClick={i => this.handleClick(i)}
+            ></SurveyButton>
             //<button key={item}>{item}</button>
           ))}
         </>
