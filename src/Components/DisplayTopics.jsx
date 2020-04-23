@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import getTopics from "../Services/getTopics";
+import SurveyButton from "../Components/SurveyButton";
 
 export default class DisplayTopics extends Component {
   constructor(props) {
@@ -40,7 +41,8 @@ export default class DisplayTopics extends Component {
         <>
           <h2>Surveys</h2>
           {topics.map((item) => (
-            <button key={item}>{item}</button>
+            <SurveyButton></SurveyButton>
+            //<button key={item}>{item}</button>
           ))}
         </>
       );
