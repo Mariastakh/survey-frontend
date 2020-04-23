@@ -10,6 +10,7 @@ export default class DisplayTopics extends Component {
       error: null,
       isLoaded: false,
       topics: [],
+      selected: [],
     };
   }
 
@@ -17,9 +18,11 @@ export default class DisplayTopics extends Component {
     getTopics().then(
       (result) => {
         console.log(result);
+        const fillWithFalse = Array(result.length).fill(false);
         this.setState({
           isLoaded: true,
           topics: result,
+          selected: fillWithFalse,
         });
       },
       (error) => {
@@ -32,7 +35,30 @@ export default class DisplayTopics extends Component {
   }
 
   handleClick(i) {
+    const selected = this.state.selected.slice();
+    selected[i] = !selected[i];
+
+    this.setState({ selected: selected });
     console.log("clicked!");
+  }
+
+  renderButton(i) {
+    return (
+      <SurveyButton
+        key={this.state.topics[i]}
+        topic={this.state.topics[i]}
+        selected={this.state.selected[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
+  }
+
+  renderButtons() {
+    let array = [];
+    for (let i = 0; i < this.state.topics.length; i++) {
+      array.push(this.renderButton(i));
+    }
+    return <div>{array}</div>;
   }
 
   render() {
@@ -45,13 +71,7 @@ export default class DisplayTopics extends Component {
       let listOfTopics = (
         <>
           <h2>Surveys</h2>
-          {topics.map((item) => (
-            <SurveyButton
-              key={item}
-              onClick={i => this.handleClick(i)}
-            ></SurveyButton>
-            //<button key={item}>{item}</button>
-          ))}
+          {this.renderButtons()}
         </>
       );
       return listOfTopics;

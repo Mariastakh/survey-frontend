@@ -1,9 +1,12 @@
-import React from "react"
+import React from "react";
 
-export default function SurveyButton(props){
-    return(
-        <button
-        onClick={() => props.onClick()}> button
-        </button>
-    )
+export default function SurveyButton(props) {
+  return (
+    <button
+      style={{ backgroundColor: props.selected ? "#7FFF00" : "#BDB76B" }}
+      onClick={() => props.onClick()}
+    >
+      {props.topic}
+    </button>
+  );
 }
