@@ -12,23 +12,21 @@ export default class DisplayTopics extends Component {
   }
 
   async componentDidMount() {
-    fetch("https://localhost:5001/api/topics")
-      .then((res) => res.json())
-      .then(
-        (result) => {
-          console.log(result);
-          this.setState({
-            isLoaded: true,
-            topics: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        }
-      );
+    getTopics().then(
+      (result) => {
+        console.log(result);
+        this.setState({
+          isLoaded: true,
+          topics: result,
+        });
+      },
+      (error) => {
+        this.setState({
+          isLoaded: true,
+          error,
+        });
+      }
+    );
   }
 
   render() {
