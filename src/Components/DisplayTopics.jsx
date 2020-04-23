@@ -39,7 +39,7 @@ export default class DisplayTopics extends Component {
     } else if (!isLoaded){
       return <div>Loading...</div>
     } else {
-    let t = (
+    let listOfTopics = (
       <>
       <h2>Surveys</h2>
        <ul>
@@ -49,7 +49,7 @@ export default class DisplayTopics extends Component {
           </ul>
          </>
     ); 
-      return t;
+      return listOfTopics;
               }
   }
 }
