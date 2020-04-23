@@ -41,11 +41,9 @@ export default class DisplayTopics extends Component {
       let listOfTopics = (
         <>
           <h2>Surveys</h2>
-          <ul>
-            {topics.map((item) => (
-              <button>{item}</button>
-            ))}
-          </ul>
+          {topics.map((item) => (
+            <button key={item}>{item}</button>
+          ))}
         </>
       );
       return listOfTopics;
