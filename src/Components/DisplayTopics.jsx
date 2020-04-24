@@ -17,7 +17,6 @@ export default class DisplayTopics extends Component {
   async componentDidMount() {
     getTopics().then(
       (result) => {
-        console.log(result);
         const fillWithFalse = Array(result.length).fill(false);
         this.setState({
           isLoaded: true,
@@ -39,7 +38,6 @@ export default class DisplayTopics extends Component {
     selected[i] = !selected[i];
 
     this.setState({ selected: selected });
-    console.log("clicked!");
   }
 
   renderButton(i) {
@@ -71,9 +69,19 @@ export default class DisplayTopics extends Component {
       selectedTopics.push(this.state.topics[i])
     }
    }
-   
-  console.log(selectedTopics[0]);
-   const path = `/surveys?topics=${selectedTopics[0]}`;
+
+  let query="";
+  for(let i = 0; i < selectedTopics.length; i++)
+  {
+    if(i < selectedTopics.length-1)
+    {
+    query += "topics="+selectedTopics[i]+"&";
+    } else {
+      query += "topics="+selectedTopics[i];
+    }
+  }
+  console.log(query)
+   const path = `/surveys?${query}`;
    this.props.history.push(path);
   };
 
