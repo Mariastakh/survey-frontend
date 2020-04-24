@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import getTopics from "../Services/getTopics";
 import SurveyButton from "../Components/SurveyButton";
-import { Link } from 'react-router-dom';
 
 export default class DisplayTopics extends Component {
   constructor(props) {
