@@ -62,7 +62,7 @@ export default class DisplayTopics extends Component {
   }
 
   getQuestionnaires() {
-    return "/surveys";
+   return "/surveys?topics=bananas";
   }
 
   render() {
@@ -76,11 +76,11 @@ export default class DisplayTopics extends Component {
         <>
           <h2>Surveys</h2>
           {this.renderButtons()}
-          <form action={this.getQuestionnaires()}>
-          <div>
-            <button type="submit">Do survey</button>
-          </div>
-        </form>
+          <form action={this.getQuestionnaires}>
+            <div>
+              <button type="submit">Do survey</button>
+            </div>
+          </form>
         </>
       );
       return listOfTopics;
