@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import getTopics from "../Services/getTopics";
 import SurveyButton from "../Components/SurveyButton";
+import { Link } from 'react-router-dom';
 
 export default class DisplayTopics extends Component {
   constructor(props) {
@@ -61,10 +62,14 @@ export default class DisplayTopics extends Component {
     return <div>{array}</div>;
   }
 
-  getQuestionnaires() {
-    query = "topics=bananas"
-   return `/surveys?{query}`;
-  }
+
+  handleSubmit = e => {
+    //e.preventDefault();
+    const query = "topics=bananas"
+   const path = "/surveys?topics=bananas";
+   this.props.history.push(path);
+  };
+
 
   render() {
     const { error, isLoaded, topics } = this.state;
@@ -77,8 +82,9 @@ export default class DisplayTopics extends Component {
         <>
           <h2>Surveys</h2>
           {this.renderButtons()}
-          <form action={this.getQuestionnaires}>
+          <form onSubmit={this.handleSubmit}>
             <div>
+     
               <button type="submit">Do survey</button>
             </div>
           </form>
