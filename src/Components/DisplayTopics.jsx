@@ -62,7 +62,8 @@ export default class DisplayTopics extends Component {
   }
 
   getQuestionnaires() {
-   return "/surveys?topics=bananas";
+    query = "topics=bananas"
+   return `/surveys?{query}`;
   }
 
   render() {
