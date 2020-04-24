@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import getTopics from "../Services/getTopics";
 import SurveyButton from "../Components/SurveyButton";
-import "../styles/global.css"
+import "../styles/global.css";
+import Header from "../Components/Header";
 
 export default class DisplayTopics extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ export default class DisplayTopics extends Component {
 
   renderButton(i) {
     return (
-      <SurveyButton 
+      <SurveyButton
         key={this.state.topics[i]}
         topic={this.state.topics[i]}
         selected={this.state.selected[i]}
@@ -60,32 +61,27 @@ export default class DisplayTopics extends Component {
     return <div>{array}</div>;
   }
 
-
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     //e.preventDefault();
     let selectedTopics = [];
-   for(let i = 0; i < this.state.topics.length; i++)
-   {
-    if(this.state.selected[i] === true){
-      selectedTopics.push(this.state.topics[i])
+    for (let i = 0; i < this.state.topics.length; i++) {
+      if (this.state.selected[i] === true) {
+        selectedTopics.push(this.state.topics[i]);
+      }
     }
-   }
 
-  let query="";
-  for(let i = 0; i < selectedTopics.length; i++)
-  {
-    if(i < selectedTopics.length-1)
-    {
-    query += "topics="+selectedTopics[i]+"&";
-    } else {
-      query += "topics="+selectedTopics[i];
+    let query = "";
+    for (let i = 0; i < selectedTopics.length; i++) {
+      if (i < selectedTopics.length - 1) {
+        query += "topics=" + selectedTopics[i] + "&";
+      } else {
+        query += "topics=" + selectedTopics[i];
+      }
     }
-  }
-  console.log(query)
-   const path = `/surveys?${query}`;
-   this.props.history.push(path);
+    console.log(query);
+    const path = `/surveys?${query}`;
+    this.props.history.push(path);
   };
-
 
   render() {
     const { error, isLoaded } = this.state;
@@ -105,7 +101,12 @@ export default class DisplayTopics extends Component {
           </form>
         </>
       );
-      return listOfTopics;
+      return (
+        <div>
+          <Header />
+          {listOfTopics}
+        </div>
+      );
     }
   }
 }

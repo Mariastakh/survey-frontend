@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import getSurveys from "../Services/getSurveys";
+import Header from "../Components/Header";
 
 export default class DisplaySurveys extends Component {
   constructor(props){
@@ -46,7 +47,12 @@ export default class DisplaySurveys extends Component {
           </ul>
         </>
       );
-      return groupedSurveys;
+      return (
+        <div>
+          <Header />
+          {groupedSurveys}
+        </div>
+      );
     }
   }
 }

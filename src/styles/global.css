@@ -1,4 +1,4 @@
-body {
+  body {
     background-color: #282c34;
     color: white;
     padding: 40px;
@@ -6,7 +6,7 @@ body {
     text-align: center;
   }
 
-  button {
+button {
     border: none;
     padding: 20px;
     margin: 20px;
