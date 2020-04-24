@@ -64,14 +64,22 @@ export default class DisplayTopics extends Component {
 
   handleSubmit = e => {
     //e.preventDefault();
-    const query = "topics=bananas"
-   const path = "/surveys?topics=bananas";
+    let selectedTopics = [];
+   for(let i = 0; i < this.state.topics.length; i++)
+   {
+    if(this.state.selected[i] === true){
+      selectedTopics.push(this.state.topics[i])
+    }
+   }
+   
+  console.log(selectedTopics[0]);
+   const path = `/surveys?topics=${selectedTopics[0]}`;
    this.props.history.push(path);
   };
 
 
   render() {
-    const { error, isLoaded, topics } = this.state;
+    const { error, isLoaded } = this.state;
     if (error) {
       return <div>Error: {error.message} </div>;
     } else if (!isLoaded) {
@@ -83,7 +91,6 @@ export default class DisplayTopics extends Component {
           {this.renderButtons()}
           <form onSubmit={this.handleSubmit}>
             <div>
-     
               <button type="submit">Do survey</button>
             </div>
           </form>

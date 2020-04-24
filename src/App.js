@@ -8,7 +8,7 @@ function App(){
   return (
     <main>
       <Router>
-        <Route path="/topics" component={DisplayTopics} />
+        <Route path="/" exact component={DisplayTopics} />
         <Route path="/surveys" component={DisplaySurveys} /> 
       </Router>
     </main>
