@@ -41,7 +41,7 @@ export default class DisplaySurveys extends Component {
         <>
           <ul>
             {surveys.map(item => (
-            <li key={item}>{item}</li>
+            <p key={item}>{item}</p>
           ))}
           </ul>
         </>
