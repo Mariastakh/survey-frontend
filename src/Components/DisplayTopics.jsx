@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import getTopics from "../Services/getTopics";
 import SurveyButton from "../Components/SurveyButton";
+import "../styles/global.css"
 
 export default class DisplayTopics extends Component {
   constructor(props) {
@@ -42,7 +43,7 @@ export default class DisplayTopics extends Component {
 
   renderButton(i) {
     return (
-      <SurveyButton
+      <SurveyButton 
         key={this.state.topics[i]}
         topic={this.state.topics[i]}
         selected={this.state.selected[i]}
