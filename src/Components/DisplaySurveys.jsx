@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import getSurveys from "../Services/getSurveys";
-import Header from "../Components/Header";
+import Header from "./Header";
 
 export default class DisplaySurveys extends Component {
   constructor(props){

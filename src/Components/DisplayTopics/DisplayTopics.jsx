@@ -108,12 +108,12 @@ export default class DisplayTopics extends Component {
   render() {
     const { error, isLoaded } = this.state;
     if (error) {
-      return <div>Error: {error.message} </div>;
+      return <div data-testid="DisplayTopics-Error">Error: {error.message} </div>;
     } else if (!isLoaded) {
-      return <div>Loading...</div>;
+      return <div data-testid='DisplayTopics-Loading'>Loading...</div>;
     } else {
       return (
-        <div>
+        <div data-testid="DisplayTopics-HasLoaded">
           <Header />
           {this.listOfTopics()}
         </div>
