@@ -1,13 +1,15 @@
 import React, { Component } from "react";
-import getTopics from "../Services/getTopics";
-import SurveyButton from "../Components/SurveyButton";
-import "../styles/global.css";
-import Header from "../Components/Header";
+import getTopics from "../../Services/getTopics";
+import SurveyButton from "../SurveyButton";
+import "../../styles/global.css";
+import Header from "../Header";
 
 export default class DisplayTopics extends Component {
   constructor(props) {
     super(props);
+
     this.handleClick = this.handleClick.bind(this);
+
     this.state = {
       error: null,
       isLoaded: false,
@@ -16,7 +18,7 @@ export default class DisplayTopics extends Component {
     };
   }
 
-  async componentDidMount() {
+  callService() {
     getTopics().then(
       (result) => {
         const fillWithFalse = Array(result.length).fill(false);
@@ -39,15 +41,16 @@ export default class DisplayTopics extends Component {
     const selected = this.state.selected.slice();
     selected[i] = !selected[i];
 
-    this.setState({ selected: selected });
+    this.setState({ selected });
   }
 
   renderButton(i) {
+    const { topics, selected } = this.state;
     return (
       <SurveyButton
-        key={this.state.topics[i]}
-        topic={this.state.topics[i]}
-        selected={this.state.selected[i]}
+        key={topics[i]}
+        topic={topics[i]}
+        selected={selected[i]}
         onClick={() => this.handleClick(i)}
       />
     );
@@ -61,7 +64,7 @@ export default class DisplayTopics extends Component {
     return <div>{array}</div>;
   }
 
-  handleSubmit = (e) => {
+  handleSubmit(e) {
     //e.preventDefault();
     let selectedTopics = [];
     for (let i = 0; i < this.state.topics.length; i++) {
@@ -78,10 +81,29 @@ export default class DisplayTopics extends Component {
         query += "topics=" + selectedTopics[i];
       }
     }
+
     console.log(query);
     const path = `/surveys?${query}`;
     this.props.history.push(path);
-  };
+  }
+
+  listOfTopics() {
+    return (
+      <>
+        <h2>Surveys</h2>
+        {this.renderButtons()}
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <button type="submit">Do survey</button>
+          </div>
+        </form>
+      </>
+    );
+  }
+
+  async componentDidMount() {
+    this.callService();
+  }
 
   render() {
     const { error, isLoaded } = this.state;
@@ -90,21 +112,10 @@ export default class DisplayTopics extends Component {
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-      let listOfTopics = (
-        <>
-          <h2>Surveys</h2>
-          {this.renderButtons()}
-          <form onSubmit={this.handleSubmit}>
-            <div>
-              <button type="submit">Do survey</button>
-            </div>
-          </form>
-        </>
-      );
       return (
         <div>
           <Header />
-          {listOfTopics}
+          {this.listOfTopics()}
         </div>
       );
     }
