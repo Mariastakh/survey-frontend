@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import getTopics from "../../Services/getTopics";
 import SurveyButton from "../SurveyButton";
 import "../../styles/global.css";
-import Header from "../Header";
 
 export default class DisplayTopics extends Component {
   constructor(props) {
@@ -11,30 +9,8 @@ export default class DisplayTopics extends Component {
     this.handleClick = this.handleClick.bind(this);
 
     this.state = {
-      error: null,
-      isLoaded: false,
-      topics: this.props.topics,
       selected: [false, false, false],
     };
-  }
-
-  callService() {
-    // getTopics().then(
-    //   (result) => {
-    //     const fillWithFalse = Array(result.length).fill(false);
-    //     this.setState({
-    //       isLoaded: true,
-    //       topics: result,
-    //       selected: fillWithFalse,
-    //     });
-    //   },
-    //   (error) => {
-    //     this.setState({
-    //       isLoaded: true,
-    //       error,
-    //     });
-    //   }
-    // );
   }
 
   handleClick(i) {
@@ -45,11 +21,11 @@ export default class DisplayTopics extends Component {
   }
 
   renderButton(i) {
-    const { topics, selected } = this.state;
+    const { selected } = this.state;
     return (
       <SurveyButton
-        key={topics[i]}
-        topic={topics[i]}
+        key={this.props.topics[i]}
+        topic={this.props.topics[i]}
         selected={selected[i]}
         onClick={() => this.handleClick(i)}
       />
@@ -67,9 +43,9 @@ export default class DisplayTopics extends Component {
   handleSubmit(e) {
     //e.preventDefault();
     let selectedTopics = [];
-    for (let i = 0; i < this.state.topics.length; i++) {
+    for (let i = 0; i < this.props.topics.length; i++) {
       if (this.state.selected[i] === true) {
-        selectedTopics.push(this.state.topics[i]);
+        selectedTopics.push(this.props.topics[i]);
       }
     }
 
@@ -90,7 +66,6 @@ export default class DisplayTopics extends Component {
   listOfTopics() {
     return (
       <>
-        <h2>Surveys</h2>
         {this.renderButtons()}
         <form onSubmit={this.handleSubmit}>
           <div>
@@ -102,14 +77,13 @@ export default class DisplayTopics extends Component {
   }
 
   async componentDidMount() {
-    this.callService();
-    //console.log(this.props.topics);
+    const fillWithFalse = Array(this.props.length).fill(false);
+    this.setState({ selected: fillWithFalse });
   }
 
   render() {
     return (
       <div data-testid="DisplayTopics">
-        <Header />
         {this.props.topics !== undefined ? this.listOfTopics() : "error"}
       </div>
     );

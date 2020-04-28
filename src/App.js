@@ -1,14 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
-import DisplayTopics from "./Components/DisplayTopics/DisplayTopics"
-import DisplaySurveys from "./Components/DisplaySurveys"
+import DisplaySurveys from "./Components/DisplaySurveys";
+import TopicsPage from "./Pages/TopicsPage";
 
 function App(){
   return (
     <main>
       <Router>
-        <Route path="/" exact component={DisplayTopics} />
+        <Route path="/" exact component={TopicsPage} />
         <Route path="/surveys" component={DisplaySurveys} /> 
       </Router>
     </main>

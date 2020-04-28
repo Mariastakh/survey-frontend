@@ -11,7 +11,8 @@ const ActualSurveyButton = jest.requireActual('../SurveyButton');
 
 jest.mock('../SurveyButton', () => (props) => <mock-SurveyButton data-testid="surveybutton" {...props} />);
 
-describe("When rendering DisplayTaopics with no topics to display, ", () => {
+
+describe("When rendering DisplayTopics with no topics to display, ", () => {
   beforeAll(() => { 
   render(<DisplayTopics/>);
   });
@@ -27,7 +28,7 @@ describe("When rendering DisplayTopics with topics to display, ", () => {
   render(<DisplayTopics topics={topicsToDisplay}/>);
   });
 
-  it("should display topics", () => {
+  xit("should display topics", () => {
     const displayTopics = screen.getByTestId('DisplayTopics');
     expect(displayTopics).toHaveTextContent(/topics/);
     });
@@ -35,6 +36,8 @@ describe("When rendering DisplayTopics with topics to display, ", () => {
   it("should display topics on buttons", () => {
     const displayTopics = screen.getByTestId('DisplayTopics');
     const surveyButtonsInDisplayTopics = within(displayTopics).getAllByTestId('surveybutton') 
+    
     expect(surveyButtonsInDisplayTopics.length).toBe(3);
+    expect(SurveyButton).toHave
     });
 });
