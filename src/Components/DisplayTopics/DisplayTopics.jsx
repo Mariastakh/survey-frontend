@@ -13,28 +13,28 @@ export default class DisplayTopics extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      topics: [],
-      selected: [],
+      topics: this.props.topics,
+      selected: [false, false, false],
     };
   }
 
   callService() {
-    getTopics().then(
-      (result) => {
-        const fillWithFalse = Array(result.length).fill(false);
-        this.setState({
-          isLoaded: true,
-          topics: result,
-          selected: fillWithFalse,
-        });
-      },
-      (error) => {
-        this.setState({
-          isLoaded: true,
-          error,
-        });
-      }
-    );
+    // getTopics().then(
+    //   (result) => {
+    //     const fillWithFalse = Array(result.length).fill(false);
+    //     this.setState({
+    //       isLoaded: true,
+    //       topics: result,
+    //       selected: fillWithFalse,
+    //     });
+    //   },
+    //   (error) => {
+    //     this.setState({
+    //       isLoaded: true,
+    //       error,
+    //     });
+    //   }
+    // );
   }
 
   handleClick(i) {
@@ -58,7 +58,7 @@ export default class DisplayTopics extends Component {
 
   renderButtons() {
     let array = [];
-    for (let i = 0; i < this.state.topics.length; i++) {
+    for (let i = 0; i < this.props.topics.length; i++) {
       array.push(this.renderButton(i));
     }
     return <div>{array}</div>;
@@ -103,21 +103,15 @@ export default class DisplayTopics extends Component {
 
   async componentDidMount() {
     this.callService();
+    //console.log(this.props.topics);
   }
 
   render() {
-    const { error, isLoaded } = this.state;
-    if (error) {
-      return <div data-testid="DisplayTopics-Error">Error: {error.message} </div>;
-    } else if (!isLoaded) {
-      return <div data-testid='DisplayTopics-Loading'>Loading...</div>;
-    } else {
-      return (
-        <div data-testid="DisplayTopics-HasLoaded">
-          <Header />
-          {this.listOfTopics()}
-        </div>
-      );
-    }
+    return (
+      <div data-testid="DisplayTopics">
+        <Header />
+        {this.props.topics !== undefined ? this.listOfTopics() : "error"}
+      </div>
+    );
   }
 }
