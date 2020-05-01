@@ -6,10 +6,13 @@ export default class DisplayTopics extends Component {
   constructor(props) {
     super(props);
 
+    const fillWithFalse = Array(this.props.length).fill(false);
+
     this.handleClick = this.handleClick.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      selected: [false, false, false],
+      selected: fillWithFalse,
     };
   }
 
@@ -41,7 +44,7 @@ export default class DisplayTopics extends Component {
   }
 
   handleSubmit(e) {
-    //e.preventDefault();
+    e.preventDefault();
     let selectedTopics = [];
     for (let i = 0; i < this.props.topics.length; i++) {
       if (this.state.selected[i] === true) {
@@ -74,11 +77,6 @@ export default class DisplayTopics extends Component {
         </form>
       </>
     );
-  }
-
-  async componentDidMount() {
-    const fillWithFalse = Array(this.props.length).fill(false);
-    this.setState({ selected: fillWithFalse });
   }
 
   render() {

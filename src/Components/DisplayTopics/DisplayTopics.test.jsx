@@ -1,43 +1,37 @@
 import React from "react";
-import { render, screen, within, findByText } from '@testing-library/react'
-import '@testing-library/jest-dom/extend-expect'
+import { render, screen, getAllByTestId } from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
 import DisplayTopics from "./DisplayTopics";
 import SurveyButton from "../SurveyButton";
-const ActualSurveyButton = jest.requireActual('../SurveyButton');
 
-// jest.mock('../SurveyButton', () => {
-//   const SurveyButton = (props) => <div data-testid="surveybutton"> {props.topics} </div>;
-// });
-
-jest.mock('../SurveyButton', () => (props) => <mock-SurveyButton data-testid="surveybutton" {...props} />);
-
+jest.mock("../SurveyButton");
+SurveyButton.mockImplementation((props) => {
+  return <div data-testid="surveyButton"> {props.topic} </div>;
+});
 
 describe("When rendering DisplayTopics with no topics to display, ", () => {
-  beforeAll(() => { 
-  render(<DisplayTopics/>);
+  beforeAll(() => {
+    render(<DisplayTopics />);
   });
 
   it("should display an error message.", () => {
-    expect(screen.getByTestId('DisplayTopics')).toHaveTextContent('error');
+    expect(screen.getByTestId("DisplayTopics")).toHaveTextContent("error");
   });
 });
 
-describe("When rendering DisplayTopics with topics to display, ", () => {
-  beforeEach(() => { 
-  const topicsToDisplay = ['topic 1', 'topic 2', 'topic 3'];
-  render(<DisplayTopics topics={topicsToDisplay}/>);
+describe("When rendering DisplayTopics with three topics to display, ", () => {
+  beforeEach(() => {
+    const topicsToDisplay = ["topic 1", "topic 2", "topic 3"];
+    render(<DisplayTopics topics={topicsToDisplay} />);
   });
 
-  xit("should display topics", () => {
-    const displayTopics = screen.getByTestId('DisplayTopics');
-    expect(displayTopics).toHaveTextContent(/topics/);
-    });
+  it("should display a button for each topic", () => {
+    const displayTopics = screen.getByTestId("DisplayTopics");
+    const buttons = getAllByTestId(displayTopics, "surveyButton");
 
-  it("should display topics on buttons", () => {
-    const displayTopics = screen.getByTestId('DisplayTopics');
-    const surveyButtonsInDisplayTopics = within(displayTopics).getAllByTestId('surveybutton') 
-    
-    expect(surveyButtonsInDisplayTopics.length).toBe(3);
-    expect(SurveyButton).toHave
-    });
+    expect(buttons.length).toBe(3);
+    expect(buttons[0]).toHaveTextContent("topic 1");
+    expect(buttons[1]).toHaveTextContent("topic 2");
+    expect(buttons[2]).toHaveTextContent("topic 3");
+  });
 });
